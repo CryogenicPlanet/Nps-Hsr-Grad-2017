@@ -6,24 +6,15 @@ use Endroid\QrCode\QrCode;
     $password = "12345678";
     $database = "c9";
     $dbport = 3306;
-   
-   
-$qrCodeText ='This is an invitation to Nps Hsr 10th Grade Grad Party At (our location) on 8th of April(mostly) from 7 pm to 11 pm(again to change with change in time) for : ';
-$name = $_POST['firstname'];
-$password = $_POST['password'];
-
-$email = $_POST['email'];
-$hashed = md5($password);
-if ($hashed == "af0133b1b5763e9e571fd77e5be993e4" || $hashed == "25d55ad283aa400af464c76d713c07ad" || $hashed  == "25d55ad283aa400af464c76d713c07ad") {
-  $db = new mysqli($servername, $username, $password, $database, $dbport);
+      $db = new mysqli($servername, $username, $password, $database, $dbport);
     // Check connection
     if ($db->connect_error) {
         die("Connection failed: " . $db->connect_error);
     } 
     $string;
     $temp = 0;
-    while($temp = 0){
-    $rdrString = generateRandomString(12);
+    while($temp == 0){
+    $rdrString = generateRandomString();
     $sql = "SELECT Name FROM Invite WHERE Code='" .$rdrString ."'";
 $result = $db->query($sql);
 
@@ -34,9 +25,18 @@ if ($result->num_rows > 0) {
     $temp = 1;
 
 }
-    }
-$qrCodeText = $qrCodeText . $name . ".This invite is only for one.";
-$qrCodeText = $qrCodeText . $string;
+    } 
+   
+$qrCodeText =  'This is an invitation to Nps Hsr 10th Grade Grad Party At (our location) on 8th of April(mostly) from 7 pm to 11 pm(again to change with change in time) for : ';
+$name = $_POST['firstname'];
+$password = $_POST['password'];
+
+$email = $_POST['email'];
+$hashed = md5($password);
+if ($hashed == "af0133b1b5763e9e571fd77e5be993e4" || $hashed == "015c06a32527a5fb677fb29cdb79c807" || $hashed  == "25d55ad283aa400af464c76d713c07ad") {
+
+  
+$qrCodeText = $qrCodeText . $name . ".This invite is only for one." . "Authentication Code is:". $string ;
  $sql = "INSERT INTO Invite (Name, Code)
 VALUES ('".$name."','".$string ."')";
 
@@ -141,7 +141,7 @@ $mailer = Swift_Mailer::newInstance($transport);
 $message = Swift_Message::newInstance('Grad Party Invitation')
   ->setFrom(array('npshsrgrad2017@gmail.com' => 'Nps Hsr Grad Party'))
   ->setTo(array($sento))
-  ->setBody('This is the invitaion to the grad party, Please bring the QrCode with you when you come for the party')
+  ->setBody('This is the invitaion to the grad party, Please bring the QrCode with you when you come for the party.Parents will not be allowed to stay at the party at the venue, they can only drop and pick up but cannot stay. Everyone at the event must follow the dress code or will be asked to leave even if payment is already made, Ensure you follow the dress code. Anyone Who goes into the pool must pay the hotel a fine of 50,00INR as the pool is off limits for the party, Every Invite Allows a Person to you only one plate for thier main course and if they use more than one plate they must pay the fine of 1.5K per extra plate , No one under any circumstance is allowed to play a Yash Raj Film Song the fine per song is 1.5Lakhs on the person who plays the song. There will be no refund under any cirumstances.')
   ->attach(Swift_Attachment::fromPath('qrcode.png'));
 
 $result = $mailer->send($message);
@@ -151,7 +151,8 @@ $result = $mailer->send($message);
   print_r($failures);
 }
 }
-function generateRandomString($length = 10) {
+function generateRandomString() {
+    $length = 10;
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
