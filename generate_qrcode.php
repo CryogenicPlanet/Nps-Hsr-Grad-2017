@@ -27,14 +27,25 @@ if ($result->num_rows > 0) {
 }
     } 
    
-$qrCodeText =  'This is an invitation to Nps Hsr 10th Grade Grad Party At (our location) on 8th of April(mostly) from 7 pm to 11 pm(again to change with change in time) for : ';
-$name = $_POST['firstname'];
+$qrCodeText =  'This is an invitation to Nps Hsr 10th Grade Grad Party At Holiday Inn on 8th of April from 6 pm to 11:30 pm for : ';
+$name = $_POST['name'];
 $password = $_POST['password'];
 
 $email = $_POST['email'];
-$hashed = md5($password);
-if ($hashed == "af0133b1b5763e9e571fd77e5be993e4" || $hashed == "015c06a32527a5fb677fb29cdb79c807" || $hashed  == "25d55ad283aa400af464c76d713c07ad") {
-
+//$hashed = "af0133b1b5763e9e571fd77e5be993e4";
+//if ($hashed == "af0133b1b5763e9e571fd77e5be993e4" || $hashed == "015c06a32527a5fb677fb29cdb79c807" || $hashed  == "25d55ad283aa400af464c76d713c07ad") {
+$go = 0;
+$conflict = $_POST['conflict'];
+if($conflict != 0){
+    if($password == "Rtb12345"){
+        $go =1;
+    }
+}else {
+    if($password == "password"){
+        $go =1;
+    }
+}
+if($go != 0) {
   
 $qrCodeText = $qrCodeText . $name . ".This invite is only for one." . "Authentication Code is:". $string ;
  $sql = "INSERT INTO Invite (Name, Code)
@@ -66,7 +77,7 @@ $qrCode->render();
 // save it to a file
 $qrCode->save('qrcode.png');
 //enable below to send emails
-sendMail($email);
+sendMail($email,$name);
 /*
 // using phpmailer
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
@@ -129,7 +140,7 @@ if (!$mail->send()) {
 } else {
     echo "Invalid Password";
 }
-function sendMail($sento){
+function sendMail($sento,$name){
 require_once 'vendor/swiftmailer/swiftmailer/lib/swift_required.php';
 
 $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
@@ -138,12 +149,27 @@ $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
 
 $mailer = Swift_Mailer::newInstance($transport);
 
-$message = Swift_Message::newInstance('Grad Party Invitation')
+$message = Swift_Message::newInstance('Nps Hsr Grad Party Invite')
   ->setFrom(array('npshsrgrad2017@gmail.com' => 'Nps Hsr Grad Party'))
   ->setTo(array($sento))
-  ->setBody('This is the invitaion to the grad party, Please bring the QrCode with you when you come for the party.Parents will not be allowed to stay at the party at the venue, they can only drop and pick up but cannot stay. Everyone at the event must follow the dress code or will be asked to leave even if payment is already made, Ensure you follow the dress code. Anyone Who goes into the pool must pay the hotel a fine of 50,00INR as the pool is off limits for the party, Every Invite Allows a Person to you only one plate for thier main course and if they use more than one plate they must pay the fine of 1.5K per extra plate , No one under any circumstance is allowed to play a Yash Raj Film Song the fine per song is 1.5Lakhs on the person who plays the song. There will be no refund under any cirumstances.')
+  ->setBody('<h3>Nps Hsr Grad Party Invite For - ' . $name . ' </h3>
+  <p><b>Venue: Holiday Inn<br>
+        Time: 6pm To 11:30 pm<br>
+        Date: 8th April 2017</b></p>
+        <p>Don’t forget your QR code, if you want to enter the party! This invite allows the entry of ONE INDIVIDUAL. No guardians shall be allowed into the venue.Also remember that you have paid for only one plate for your food! Don’t take anymore plates unless you’re willing to pay 1,500 INR more for each plate!
+Dress Code is compulsory. Come dressed in your semi-formal best!</p>
+<p>
+The pool is off limits, unless you are willing to pay a fine of INR 50,000.
+Under no circumstance can you play a Yash Raj Film song, unless you can miraculously conjure 1.5 lakhs, to pay as a fine!
+There will be no refund any circumstance.
+Enjoy!</p>','text/html')
+        
   ->attach(Swift_Attachment::fromPath('qrcode.png'));
-
+$message->setCc(array(
+    'rahultarak12345@gmail.com' => 'Rahul Tarak',
+    'kasturi.kk14@gmail.com' => 'Kasturi K',
+    'dudechubs@gmail.com' => 'Dhruv Saxena'
+    ));
 $result = $mailer->send($message);
  if (!$mailer->send($message, $failures))
 {

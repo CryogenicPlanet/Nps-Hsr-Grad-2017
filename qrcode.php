@@ -43,7 +43,7 @@
             
         <div class="col s6 offset-s3">
              <p class="z-depth-5">
-                    <form class="col s12"  action="generate_qrcode.php" method="post">
+                    <form class="col s12"  action="invite.php" method="post">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <span class="card-title">Generate Qr Code</span>
