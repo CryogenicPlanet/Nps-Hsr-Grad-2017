@@ -10,23 +10,28 @@
         die("Connection failed: " . $db->connect_error);
     } 
     //$authcode = $_POST['authcode'];
+    $password = $_REQUEST['password'];
+    if($password == "7f7d47f1ff6bf26a221b21ae3bde1074"){
     $authcode = $_REQUEST['authcode'];
-
- if(checkError($db,$authcode) == "sucess"){
-     
-     $sql = "UPDATE Test SET checkedIn=1 WHERE Code='" .$authcode."'";
+    if($authcode =="conCheck"){
+        echo "true";
+        exit;
+    }
+$status = checkError($db,$authcode);
+ if($status != "sucess"){
+     echo $status;
+}else{
+    $sql = "UPDATE Invite SET checkedIn=1 WHERE Code='" .$authcode."'";
 if ($db->query($sql) === TRUE) {
     echo "sucess";
 } else {
     echo "Error updating record: " . $conn->error;
 }
-}else{
-    echo checkError($db,$authcode);
 }
-
+}
 function checkError($db,$authcode){
     
-    $sql ="SELECT checkedIn FROM Test WHERE Code='" . $authcode."'";
+    $sql ="SELECT checkedIn FROM Invite WHERE Code='" . $authcode."'";
      $result = $db->query($sql);
     if ($result->num_rows > 0) {
          while($row = $result->fetch_assoc()) {
@@ -40,4 +45,5 @@ function checkError($db,$authcode){
     return "sucess";
 }
 $db->close();
+
 ?>
