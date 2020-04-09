@@ -16,4 +16,4 @@ It was also a great learning opportunity in terms of App development, as my firs
 
 ## Repurposed 
 
-This solution was migrate to node from php, adding custom image qr code generation and was used for [Oak Codefest](http://codefest.oakridge.in) for all participants. The repository migrated from just mainted by me, to the [Oak Codefest Team](https://github.com/oakblr) and is mainted at https://github.com/oakblr/Codefest-Emailer
+This solution was migrate to node from php, adding custom image qr code generation and was used for [Oak Codefest](http://codefest.oakridge.in) for all participants. The repository migrated from just mainted by me, to the [Oak Codefest Team](https://github.com/oakblr) and is mainted at [Codefest Emailer](https://github.com/oakblr/Codefest-Emailer)
