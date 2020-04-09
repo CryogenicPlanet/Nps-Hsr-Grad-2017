@@ -9,6 +9,8 @@ The solution has an web interface and an Android App, the App works to scan the 
 
 This is one of those apps, I made because I was lazy to manually have an excel sheet and check of students coming to our high school prom, which had tickets which not the entire class bought, and hence this solution was created.
 
+It was also a great learning opportunity in terms of App development, as my first attempt at making an App
+
 
 ## Repurposed 
 
