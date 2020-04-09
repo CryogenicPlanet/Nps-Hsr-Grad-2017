@@ -1,5 +1,7 @@
 # NPS HSR Grad 2017
 
+Redeployed to https://nps-hsr-grad-2017.netlify.com/
+
 This solution is actually an event management solution to issue custom qr codes as invites to each individual user and have an app to scan them in on entry to the event.
 
 The solution has an web interface and an Android App, the App works to scan the qr codes, while the server sends the custom emailed invites and validates the qr codes
