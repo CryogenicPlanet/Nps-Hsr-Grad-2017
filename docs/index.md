@@ -1,6 +1,6 @@
 # NPS HSR Grad 2017
 
-Redeployed to https://nps-hsr-grad-2017.netlify.com/
+Redeployed to [https://nps-hsr-grad-2017.netlify.com/](https://nps-hsr-grad-2017.netlify.com/)
 
 This solution is actually an event management solution to issue custom qr codes as invites to each individual user and have an app to scan them in on entry to the event.
 
